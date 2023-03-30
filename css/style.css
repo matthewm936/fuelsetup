@@ -1,0 +1,75 @@
+/* README
+   To make a horizontal navbar along the top of the window wrap a <ul>
+   in a <nav> tag.
+
+   To make a text link appear as a button give it the id "linkButton" in
+   its HTML tag.
+
+   Use the following code in your HTML document to use this style:
+      <style>
+        <?php include 'style.css';?>
+      </style>
+*/
+
+* {
+    font-family: sans-serif;
+  }
+  
+  body {
+    background-color: whitesmoke;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    margin: -10px;
+    padding: 0;
+    overflow: hidden;
+    background-color: #1c5c28;
+    border: 1px solid #14421d;
+  }
+  
+  nav ul li {
+    display: inline;
+    float: left;
+    border-right: 1px solid whitesmoke;
+  }
+  
+  nav ul li a {
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    padding: 14px 16px;
+    display: inline;
+    display: block;
+  }
+  
+  nav ul li a:hover {
+    background-color: #2b863c;
+  }
+  
+  a {
+    background-color: #1c5c28;
+    color: whitesmoke;
+    padding: 10px 15px;
+    border: 2px solid #14421d;
+  }
+  
+  a:hover{
+    background-color: #2b863c;
+  }
+
+
+table {
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+td {
+    border: 1px solid black;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
