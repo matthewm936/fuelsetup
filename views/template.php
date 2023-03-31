@@ -8,7 +8,7 @@
 <body>
     <nav>
         <ul>
-            <li><img src='assets/img/tempLogo.png' id="logo" alt='Company Logo' ></li>
+            <li><img src='assets/img/misa.png' id="logo" alt='Company Logo' ></li>
             <li><a href='?page=home'>Home</a></li>
             <li><a href="?page=about">Bio</a></li>
             <li><a href="?page=color">Colors</a></li>
