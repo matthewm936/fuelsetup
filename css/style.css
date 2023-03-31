@@ -1,7 +1,6 @@
 /* README
    To make a horizontal navbar along the top of the window wrap a <ul>
    in a <nav> tag and have each <a> tag within an <li> as shown below:
-
     <nav>
         <ul>
             <li><img href='' alt='Company Logo'></li>
@@ -10,7 +9,6 @@
             <li><a href="?page=color">Colors</a></li>
         </ul>
     </nav>
-
    To make a text link appear as a button give it the id "linkButton" in
    its HTML tag.
 */
@@ -21,6 +19,9 @@
 
 body {
   background-color: whitesmoke;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 50px;
 }
 
 a {
@@ -72,6 +73,8 @@ table {
   margin-top: 20px;
   margin-bottom: 20px;
   width: 80vw;
+  margin: 0 auto;
+  text-align: center;
 }
 td {
   border: 1px solid black;
