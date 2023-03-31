@@ -37,6 +37,12 @@ class Controller_Welcome extends Controller_Template
             $this->template->title= 'Color Page';
             $this->template->content = View::forge('welcome/colors.php',$data);
         }
+        if(isset($_GET['page'])){
+            if ($_GET['page'] == "gray") {
+                $this->template->title= 'PrintView';  
+                $this->template->css = 'gray.css'; 
+                $this->template->content = View::forge('welcome/colors.php',$data);
+            }}
 
 		
 
