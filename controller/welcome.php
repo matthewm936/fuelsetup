@@ -73,7 +73,7 @@ class Controller_Welcome extends Controller_Template
 				for ($i = 1; $i <= $colors; $i++) {
 					echo "<tr>";
 					// Generate the drop-down for the left column cell
-					echo "<td>";
+					echo "<td id=\"primaryColumn\">";
 					echo "<select name='color" . $i . "'>";
 					foreach ($colorsArray as $index => $color) {
 						$selected = '';
@@ -84,7 +84,8 @@ class Controller_Welcome extends Controller_Template
 					}
 					echo "</select>";
 					echo "</td>";
-					echo "<td></td>";
+					$boxColor = $colorsArray[$i -1];
+					echo "<td style=\"background-color:$boxColor\"></td>";
 					echo "</tr>";
 				}
 				echo "</table>";
@@ -98,10 +99,9 @@ class Controller_Welcome extends Controller_Template
 		if(isset($_GET['size'])) {
 			$size = $_GET["size"];
 			// Set the default size if the parameter is not set or is not a number
-			if ($size == 0) {
-				echo "<p>do not input size of 0</p>";
-			}
-			if ($size > 26) {
+			if ($size == 0 || !is_numeric($size)) {
+				echo "<p>Size of colors input must be non-empty and greater than 0.</p>";
+			} elseif ($size > 26) {
 				echo "<p>do not input size of greater than 26</p>";
 			} else {
 				echo "<table>";
@@ -110,15 +110,15 @@ class Controller_Welcome extends Controller_Template
 				echo "<tr>";
 				for ($j = 1; $j <= $size + 1; $j++) {
 					if($j == 1 & $i == 1) {
-						echo "<td></td>";
+						echo "<td id=\"uniformWidthColumn\"></td>";
 					} elseif ($i == 1) {
-						echo "<td>" . chr($j+63) . "</td>";
+						echo "<td id=\"uniformWidthColumn\">" . chr($j+63) . "</td>";
 					} 
 					elseif ($j == 1) {
-						echo "<td>" . ($i-1) . "</td>";
+						echo "<td id=\"uniformWidthColumn\">" . ($i-1) . "</td>";
 					} 
 					else {
-						echo "<td></td>";
+						echo "<td id=\"uniformWidthColumn\"></td>";
 
 					}
 				}
