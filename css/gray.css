@@ -12,6 +12,12 @@
    To make a text link appear as a button give it the id "linkButton" in
    its HTML tag.
 */
+
+* {
+  filter: grayscale(100%); 
+}
+
+
 html{
     max-width: 8.5in;
     max-height: 11in;
