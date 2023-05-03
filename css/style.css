@@ -103,3 +103,38 @@ select {
 #logo {
   width: 50px;
 }
+
+.colors td.selected {
+  border: 3px solid blue;
+}
+
+.red {
+  background-color: red !important;
+}
+.orange {
+  background-color: orange !important;
+}
+.yellow {
+  background-color: yellow !important;
+}
+.green {
+  background-color: green !important;
+}
+.blue {
+  background-color: blue !important;
+}
+.purple {
+  background-color: purple !important;
+}
+.grey {
+  background-color: grey !important;
+}
+.brown {
+  background-color: brown !important;
+}
+.black {
+  background-color: black !important;
+}
+.teal {
+  background-color: teal !important;
+}
