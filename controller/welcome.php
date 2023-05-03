@@ -42,6 +42,8 @@ class Controller_Welcome extends Controller_Template
                 $this->template->title= 'PrintView';  
                 $this->template->css = 'gray.css'; 
                 $this->template->content = View::forge('welcome/colors.php',$data);
+		echo "<h1>Misa Misa CO</h1>";
+
             }}
 
 		
