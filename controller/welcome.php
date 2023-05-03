@@ -91,7 +91,7 @@ class Controller_Welcome extends Controller_Template
 					echo "</select>";
 					echo "</td>";
 					$boxColor = $colorsArray[$i -1];
-					echo "<td id='colorBar' class='$boxColor' style=\"background-color:$boxColor\"></td>";
+					echo "<td id='colorBar' class='$boxColor not' style=\"background-color:$boxColor\">$boxColor cells:</td>";
 					echo "</tr>";
 				}
 				echo "</table>";
@@ -100,13 +100,15 @@ class Controller_Welcome extends Controller_Template
 				<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 				<script>
 					\$var = 'black';
-					$('.colors td#colorBar:first-child').addClass('selected');
+					
 
 					$('.colors td#colorBar').click(function() {
 						\$prev = $('.colors td.selected').attr('class');
+						$('.colors td.selected').addClass('not');
 						$('.colors td.selected').removeClass('selected');
 						\$var = $(this).attr('class');
 						$(this).addClass('selected');
+						$(this).removeClass('not');
 					});
 				</script>";
 		}
@@ -137,7 +139,7 @@ class Controller_Welcome extends Controller_Template
 						echo "<td id=\"uniformWidthColumn\">" . ($i-1) . "</td>";
 					} 
 					else {
-						echo "<td class='' id='".chr($j+63).",".($i-1)."' id=\"uniformWidthColumn\"></td>";
+						echo "<td class='white' id=' ".chr($j+63).",".($i-1)."' id=\"uniformWidthColumn\"></td>";
 
 					}
 				}
@@ -149,9 +151,17 @@ class Controller_Welcome extends Controller_Template
 			echo "
 			<script>
 				$('.grid td').click(function() {
-					$(this).toggleClass(\$var);
-					\$id=$(this).attr('id');
-					$('.colors td#colorBar.selected').textContent+='\$id';
+					\$var = $('td#colorBar.selected').attr('class');
+					if($(this).attr('class')==\$var){
+						document.querySelector('td#colorBar.selected').innerText=document.querySelector('td#colorBar.selected').innerText.replace($(this).attr('id'), '');
+						$(this).attr('class', 'white');
+					}
+					else{
+						document.querySelector('td#colorBar.selected').innerText+=$(this).attr('id');
+						document.querySelector('td#colorBar.not').innerText=document.querySelector('td#colorBar.not').innerText.replace($(this).attr('id'), '');
+						$(this).attr('class', \$var);
+					} 
+					
 				});
 			</script>";
 			
