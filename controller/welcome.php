@@ -100,7 +100,7 @@ class Controller_Welcome extends Controller_Template
 				<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 				<script>
 					\$var = 'black';
-					$('.colors td#colorBar').addClass('selected');
+					$('.colors td#colorBar:first-child').addClass('selected');
 
 					$('.colors td#colorBar').click(function() {
 						\$prev = $('.colors td.selected').attr('class');
@@ -151,7 +151,7 @@ class Controller_Welcome extends Controller_Template
 				$('.grid td').click(function() {
 					$(this).toggleClass(\$var);
 					\$id=$(this).attr('id');
-					$('.colors td.\$var').innerHTML=\$id;
+					$('.colors td#colorBar.selected').textContent+='\$id';
 				});
 			</script>";
 			
