@@ -37,6 +37,13 @@ class Controller_Welcome extends Controller_Template
             $this->template->title= 'Color Page';
             $this->template->content = View::forge('welcome/colors.php',$data);
         }
+        if(isset($_GET['page'])){
+            if ($_GET['page'] == "gray") {
+                $this->template->title= 'PrintView';  
+                $this->template->css = 'gray.css'; 
+                $this->template->content = View::forge('welcome/colors.php',$data);
+				echo "<h1>Misa Misa CO</h1>";
+            }}
 
 		
 
@@ -67,7 +74,7 @@ class Controller_Welcome extends Controller_Template
 			elseif ($colors > 10) {
 				echo "<p>do not input colors of greater than 10</p>";
 			} else {
-				echo "<table>";
+				echo "<table class='colors'>";
 				$colorsArray = array('red', 'orange', 'yellow', 'green', 'blue', 'purple', 'grey', 'brown', 'black', 'teal');
 				// Generate the table rows and cells
 				for ($i = 1; $i <= $colors; $i++) {
@@ -85,11 +92,28 @@ class Controller_Welcome extends Controller_Template
 					echo "</select>";
 					echo "</td>";
 					$boxColor = $colorsArray[$i -1];
-					echo "<td style=\"background-color:$boxColor\"></td>";
+					echo "<td id='colorBar' class='$boxColor' style=\"background-color:$boxColor\"></td>";
 					echo "</tr>";
 				}
 				echo "</table>";
 			}
+			echo "
+				<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+				<script>
+					\$var = 'black';
+					$('.colors td#colorBar:first-child').addClass('selected');
+
+					$('.colors td#colorBar').click(function() {
+						\$prev = $('.colors td.selected').attr('class');
+						$('.colors td.selected').removeClass('selected');
+						\$var = $(this).attr('class');
+						$(this).addClass('selected');
+					});
+				</script>
+				<script>
+					
+			
+				</script>";
 		}
 		
 
@@ -104,7 +128,7 @@ class Controller_Welcome extends Controller_Template
 			} elseif ($size > 26) {
 				echo "<p>do not input size of greater than 26</p>";
 			} else {
-				echo "<table>";
+				echo "<table class='grid'>";
 			// Generate the table rows and cells
 			for ($i = 1; $i <= $size + 1; $i++) {
 				echo "<tr>";
@@ -118,7 +142,7 @@ class Controller_Welcome extends Controller_Template
 						echo "<td id=\"uniformWidthColumn\">" . ($i-1) . "</td>";
 					} 
 					else {
-						echo "<td id=\"uniformWidthColumn\"></td>";
+						echo "<td class='' id='".chr($j+63).",".($i-1)."' id=\"uniformWidthColumn\"></td>";
 
 					}
 				}
@@ -126,7 +150,16 @@ class Controller_Welcome extends Controller_Template
 			}
 			echo "</table>";
 			}
-
+			
+			echo "
+			<script>
+				$('.grid td').click(function() {
+					$(this).toggleClass(\$var);
+					\$id=$(this).attr('id');
+					$('.colors td#colorBar.selected').textContent+='\$id';
+				});
+			</script>
+			";
 			
 		}
 		//end of 2 table
