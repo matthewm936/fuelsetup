@@ -12,6 +12,10 @@
    To make a text link appear as a button give it the id "linkButton" in
    its HTML tag.
 */
+* {
+  filter: grayscale(100%); 
+}
+
 html{
     max-width: 8.5in;
     max-height: 11in;
@@ -76,6 +80,7 @@ table {
     max-width: 8.5in;
     max-height: 11in;
   }
+
 td {
     border: 1px solid black;
     height: 40px;
@@ -102,9 +107,27 @@ select {
   */
   #logo {
     width: 50px;
+    filter: grayscale(100%); 
   }
+
+  /*removing the drop down in printview 
+  this is  because of lost points on M1*/
 
 #primaryColumn {
   display: none;
   visibility: hidden;
 }
+
+/*table alignment, put table below header*/
+.colors {
+  position: absolute;
+  top: 350px;
+  left: 30px;
+}
+
+.grid {
+  position: absolute;
+  top: 700px;
+  left: 30px;
+}
+
