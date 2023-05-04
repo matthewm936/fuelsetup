@@ -45,7 +45,7 @@
     <nav>
         <a href='?page=gray&
             colors=<?php if(isset($_GET['colors'])){echo $_GET['colors'];}?>&
-            size=<?php if(isset($_GET['size'])){echo $_GET['size'];}?>&'>
+            size=<?php if(isset($_GET['size'])){echo $_GET['size'];}?>'>
             PrintView</a>
     </nav>
 </body>
