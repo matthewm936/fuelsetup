@@ -24,6 +24,12 @@
         <button type="submit">Remove Color</button> 
         <br>
     </form>
+    <p>Colors in the database: 
+        <?php $dataBaseColors = DB::select('*')->from('colors')->execute();
+		      $numColors = count($dataBaseColors);
+              echo $numColors;
+        ?>
+    </p>
     <nav>
         <a href='?page=gray&
             colors=<?php if(isset($_GET['colors'])){echo $_GET['colors'];}?>&
