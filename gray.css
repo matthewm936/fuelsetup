@@ -103,3 +103,8 @@ select {
   #logo {
     width: 50px;
   }
+
+#primaryColumn {
+  display: none;
+  visibility: hidden;
+}
