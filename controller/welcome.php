@@ -237,10 +237,6 @@ class Controller_Welcome extends Controller_Template
 			}
 		}
 
-		//uncomment these line to get a crappy list of the colors in the database
-		/*$testQ = DB::query('SELECT `name` FROM `colors`')->execute()->as_array();
-		print_r($testQ);*/
-
 		return;
 	}
 
