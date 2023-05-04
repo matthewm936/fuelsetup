@@ -115,6 +115,8 @@ class Controller_Welcome extends Controller_Template
 					$hexcode = $hexcodeRaw[0]['hex'];
 					echo "<td id='colorBar' class='$boxColor not' style=\"background-color:$hexcode\">$boxColor cells:</td>";
 					echo "</tr>";
+
+					echo "<style> .$boxColor{background-color: $hexcode;}</style>";
 				}
 				echo "</table>";
 			}
