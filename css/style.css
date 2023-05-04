@@ -110,13 +110,9 @@ select {
 
 /*table alignment, put table below header*/
 .colors {
-  position: absolute;
-  top: 350px;
-  margin-left: 50px;
+ 
 }
 
 .grid {
-  position: absolute;
-  top: 550px; 
-  margin-left: 50px; 
+
 }
