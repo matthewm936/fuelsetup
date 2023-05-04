@@ -19,6 +19,11 @@
  * @package  app
  * @extends  Controller
  */
+ 
+//KNOWN BUGS:
+// 1) Can't color when the color table's size is 1
+// 2) The name in the dropdown is not the same name as the color
+		
 class Controller_Welcome extends Controller_Template
 {
 	public function action_index()
@@ -183,11 +188,6 @@ class Controller_Welcome extends Controller_Template
 
 		//Database stuff
 		//---------------------------------------------
-		//KNOWN BUGS:
-		// 1) Can't color when the color table's size is 1
-		// 2) The name in the dropdown is not the same name as the color
-
-		//might need to have a create database funciton in a try catch to guarentee that the database will at least exist
 
 		//ADD TO DATABASE
 		if(isset($_GET['colorName']) and isset($_GET['colorHex']) and isset($_GET['colorID'])){
