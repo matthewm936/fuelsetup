@@ -184,8 +184,8 @@ class Controller_Welcome extends Controller_Template
 		//Database stuff
 		//---------------------------------------------
 		//KNOWN BUGS:
-		// 1) You can add colors with empty fields.
-		// 2) The name in the dropdwon is not the same name as the color
+		// 1) Can't color when the color table's size is 1
+		// 2) The name in the dropdown is not the same name as the color
 
 		//might need to have a create database funciton in a try catch to guarentee that the database will at least exist
 
@@ -213,12 +213,15 @@ class Controller_Welcome extends Controller_Template
 				echo "<p>A color already exists with the given ID.</p>";
 			} else if ($colorWithHexAlreadyExists) { 
 				echo "<p>A color already exists with the given hex code.</p>";
+			} else if ($colorNameIsEmpty or $colorHexIsEmpty or $colorIDIsEmpty) {
+				echo "<p>No field can be empty when adding a color.</p>";
 			} else {
 				list($insertId, $rowsAffected) = DB::insert('colors')->set(array(
 				'id'	=> $colorID,
 				'name'	=> $colorName,
 				'hex'	=> $colorHex,
 				))->execute(); 
+				echo "<p>The color \"$colorName\" was added to the database.</p>";
 			}
 		} 
 
