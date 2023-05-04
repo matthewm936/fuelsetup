@@ -111,7 +111,9 @@ class Controller_Welcome extends Controller_Template
 					echo "</select>";
 					echo "</td>";
 					$boxColor = implode($colorsArray[$i]);
-					echo "<td id='colorBar' class='$boxColor not' style=\"background-color:$boxColor\">$boxColor cells:</td>";
+					$hexcodeRaw = DB::select('hex')->from('colors')->where('name','=',$boxColor)->execute()->as_array();
+					$hexcode = $hexcodeRaw[0]['hex'];
+					echo "<td id='colorBar' class='$boxColor not' style=\"background-color:$hexcode\">$boxColor cells:</td>";
 					echo "</tr>";
 				}
 				echo "</table>";
@@ -195,7 +197,7 @@ class Controller_Welcome extends Controller_Template
 			$colorName = $_GET['colorName'];
 			$colorHex = $_GET['colorHex'];
 			$colorID = $_GET['colorID'];
-			
+
 			$colorNameIsEmpty = empty($colorName);
 			$colorHexIsEmpty = empty($colorHex);
 			$colorIDIsEmpty = empty($colorID);
