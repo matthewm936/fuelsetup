@@ -19,6 +19,13 @@
  * @package  app
  * @extends  Controller
  */
+ 
+//KNOWN BUGS:
+// 1) Can't color when the color table's size is 1
+// 2) The name in the dropdown is not the same name as the color
+// 3) only the first 2 rows in the color table automatically update which cells are colored
+// 4) Colors wit spaces in the name don't work properly
+		
 class Controller_Welcome extends Controller_Template
 {
 	public function action_index()
@@ -37,6 +44,17 @@ class Controller_Welcome extends Controller_Template
             $this->template->title= 'Color Page';
             $this->template->content = View::forge('welcome/colors.php',$data);
         }
+
+		if(isset($_GET['colorName'])){
+            $this->template->title= 'Color Page';
+            $this->template->content = View::forge('welcome/colors.php',$data);
+        }
+
+		if(isset($_GET['colorNameRemove'])){
+            $this->template->title= 'Color Page';
+            $this->template->content = View::forge('welcome/colors.php',$data);
+        }
+
         if(isset($_GET['page'])){
             if ($_GET['page'] == "gray") {
                 $this->template->title= 'PrintView';  
@@ -66,42 +84,47 @@ class Controller_Welcome extends Controller_Template
 
 		if(isset($_GET['colors'])) {
 			$colors = $_GET["colors"];
+			$dataBaseColors = DB::select('*')->from('colors')->execute();
+			$maxColors = count($dataBaseColors);
 			// Set the default size if the parameter is not set or is not a number
 			if ($colors == 0) {
 				echo "<p>do not input colors of 0</p>";
 			}
-			elseif ($colors > 10) {
-				echo "<p>do not input colors of greater than 10</p>";
+			elseif ($colors > $maxColors) {
+				echo "<p>Database only has $maxColors colors</p>";
 			} else {
 				echo "<table class='colors'>";
-				$colorsArray = array('red', 'orange', 'yellow', 'green', 'blue', 'purple', 'grey', 'brown', 'black', 'teal');
+				$colorsArray = DB::query('SELECT `name` FROM `colors`')->execute()->as_array();
 				// Generate the table rows and cells
-				for ($i = 1; $i <= $colors; $i++) {
+				for ($i = 0; $i < $colors; $i++) {
 					echo "<tr>";
 					// Generate the drop-down for the left column cell
 					echo "<td id=\"primaryColumn\">";
 					echo "<select name='color" . $i . "'>";
-					foreach ($colorsArray as $index => $color) {
+					foreach ($colorsArray as $color) {
+						$color = implode($color);
 						$selected = '';
-						if ($index == $i - 1) {
+						if ($color == $i) {
 							$selected = 'selected';
 						}
 						echo "<option value='" . $color . "' " . $selected . ">" . ucfirst($color) . "</option>";
 					}
 					echo "</select>";
 					echo "</td>";
-					$boxColor = $colorsArray[$i -1];
-					echo "<td id='colorBar' class='$boxColor not' style=\"background-color:$boxColor\">$boxColor cells:</td>";
+					$boxColor = implode($colorsArray[$i]);
+					$hexcodeRaw = DB::select('hex')->from('colors')->where('name','=',$boxColor)->execute()->as_array();
+					$hexcode = $hexcodeRaw[0]['hex'];
+					echo "<td id='colorBar' class='$boxColor not' style=\"background-color:$hexcode\">$boxColor cells:</td>";
 					echo "</tr>";
+
+					echo "<style> .$boxColor{background-color: $hexcode;}</style>";
 				}
 				echo "</table>";
 			}
-			echo "
-				<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+			echo "<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 				<script>
 					\$var = 'black';
 					
-
 					$('.colors td#colorBar').click(function() {
 						\$prev = $('.colors td.selected').attr('class');
 						$('.colors td.selected').addClass('not');
@@ -121,7 +144,7 @@ class Controller_Welcome extends Controller_Template
 			$size = $_GET["size"];
 			// Set the default size if the parameter is not set or is not a number
 			if ($size == 0 || !is_numeric($size)) {
-				echo "<p>Size of colors input must be non-empty and greater than 0.</p>";
+				echo "<p>Table size input must be non-empty and greater than 0.</p>";
 			} elseif ($size > 26) {
 				echo "<p>do not input size of greater than 26</p>";
 			} else {
@@ -147,7 +170,7 @@ class Controller_Welcome extends Controller_Template
 			}
 			echo "</table>";
 			}
-			
+
 			echo "
 			<script>
 				$('.grid td').click(function() {
@@ -158,7 +181,10 @@ class Controller_Welcome extends Controller_Template
 					}
 					else{
 						document.querySelector('td#colorBar.selected').innerText+=$(this).attr('id');
-						document.querySelector('td#colorBar.not').innerText=document.querySelector('td#colorBar.not').innerText.replace($(this).attr('id'), '');
+						const nodeList = document.querySelectorAll('td#colorBar.not');
+						for(let i = 0; i < nodeList.length; i++){
+							nodeList[i].innerText=nodeList[i].innerText.replace($(this).attr('id'), '');
+						}
 						$(this).attr('class', \$var);
 					} 
 					
@@ -168,6 +194,64 @@ class Controller_Welcome extends Controller_Template
 		}
 		//end of 2 table
 		//-----------------------------
+
+		//Database stuff
+		//---------------------------------------------
+
+		//ADD TO DATABASE
+		if(isset($_GET['colorName']) and isset($_GET['colorHex']) and isset($_GET['colorID'])){
+			$colorName = $_GET['colorName'];
+			$colorHex = $_GET['colorHex'];
+			$colorID = $_GET['colorID'];
+
+			$colorNameIsEmpty = empty($colorName);
+			$colorHexIsEmpty = empty($colorHex);
+			$colorIDIsEmpty = empty($colorID);
+
+			$existingColorsWithGivenName = DB::select("name")->from('colors')->where('name','=', $colorName)->execute();
+			$numberOfColorsWithName = count($existingColorsWithGivenName); 
+			$colorwithNameAlreadyExists = $numberOfColorsWithName > 0;
+
+			$existingColorsWithGivenID = DB::select("id")->from('colors')->where('id','=', $colorID)->execute();
+			$numberOfColorsWithID = count($existingColorsWithGivenID);
+			$colorWithIDAlreadyExists = $numberOfColorsWithID > 0;
+
+			$existingColorsWithGivenHex = DB::select("hex")->from('colors')->where('hex','=', $colorHex)->execute();
+			$numberOfColorsWithHex = count($existingColorsWithGivenHex);
+			$colorWithHexAlreadyExists = $numberOfColorsWithHex > 0;
+
+			if ($colorwithNameAlreadyExists) {
+				echo "<p>A color already exists with the given name.</p>";
+			} else if ($colorWithIDAlreadyExists) { 
+				echo "<p>A color already exists with the given ID.</p>";
+			} else if ($colorWithHexAlreadyExists) { 
+				echo "<p>A color already exists with the given hex code.</p>";
+			} else if ($colorNameIsEmpty or $colorHexIsEmpty or $colorIDIsEmpty) {
+				echo "<p>No field can be empty when adding a color.</p>";
+			} else {
+				list($insertId, $rowsAffected) = DB::insert('colors')->set(array(
+				'id'	=> $colorID,
+				'name'	=> $colorName,
+				'hex'	=> $colorHex,
+				))->execute(); 
+				echo "<p>The color \"$colorName\" was added to the database.</p>";
+			}
+		} 
+
+		//REMOVE FROM DATABASE
+		if(isset($_GET['colorNameRemove'])) {
+			$colorToRemove = $_GET['colorNameRemove'];
+
+			$deleteResult = DB::delete('colors')->where('name','=',$colorToRemove)->execute();					
+			
+			$NO_COLOR_FOUND = 0;
+			$colorWasNotDeleted = $deleteResult == $NO_COLOR_FOUND;
+			if ($colorWasNotDeleted) {
+				echo "<p> The color \"$colorToRemove\" was not found and could not be deleted </p>";
+			} else {
+				echo "<p> The color \"$colorToRemove\" was removed.</p>";
+			}
+		}
 
 		return;
 	}
