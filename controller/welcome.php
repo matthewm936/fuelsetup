@@ -92,7 +92,7 @@ class Controller_Welcome extends Controller_Template
 				echo "<p>Database only has $maxColors colors</p>";
 			} else {
 				echo "<table class='colors'>";
-				$colorsArray = $testQ = DB::query('SELECT `name` FROM `colors`')->execute()->as_array();
+				$colorsArray = DB::query('SELECT `name` FROM `colors`')->execute()->as_array();
 				// Generate the table rows and cells
 				for ($i = 0; $i < $colors; $i++) {
 					echo "<tr>";
