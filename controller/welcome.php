@@ -194,6 +194,10 @@ class Controller_Welcome extends Controller_Template
 			$colorName = $_GET['colorName'];
 			$colorHex = $_GET['colorHex'];
 			$colorID = $_GET['colorID'];
+			
+			$colorNameIsEmpty = empty($colorName);
+			$colorHexIsEmpty = empty($colorHex);
+			$colorIDIsEmpty = empty($colorID);
 
 			$existingColorsWithGivenName = DB::select("name")->from('colors')->where('name','=', $colorName)->execute();
 			$numberOfColorsWithName = count($existingColorsWithGivenName); 
