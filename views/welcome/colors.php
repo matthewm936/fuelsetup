@@ -12,10 +12,22 @@
         <button type="submit">Search</button> 
         <br>
     </form>
+    <form action="<?php echo Uri::create(); ?>" method="get">
+        <input type="text" name=colorID placeholder="Input an id for the color">
+        <input type="text" name=colorName placeholder="Input name of the color">
+        <input type="text" name=colorHex placeholder="Input hexvalue of the color">
+        <button type="submit">Add Color</button> 
+        <br>
+    </form>
+    <form action="<?php echo Uri::create(); ?>" method="get">
+        <input type="text" name=colorNameRemove placeholder="Input name of the color">
+        <button type="submit">Remove Color</button> 
+        <br>
+    </form>
     <nav>
         <a href='?page=gray&
             colors=<?php if(isset($_GET['colors'])){echo $_GET['colors'];}?>&
-            size=<?php if(isset($_GET['size'])){echo $_GET['size'];}?>'>
+            size=<?php if(isset($_GET['size'])){echo $_GET['size'];}?>&'>
             PrintView</a>
     </nav>
 </body>
