@@ -26,8 +26,14 @@
     </form>
     <p>Colors in the database: 
         <?php $dataBaseColors = DB::select('*')->from('colors')->execute();
-		      $numColors = count($dataBaseColors);
-              echo $numColors;
+		    $numColors = count($dataBaseColors);
+            echo $numColors;
+            echo "<br>";
+
+            $colors = DB::query('SELECT `name` FROM `colors`')->execute()->as_array();
+		    foreach($colors as $color) {
+			    echo ($color['name'] . ", ");
+	    }
         ?>
     </p>
     <nav>
