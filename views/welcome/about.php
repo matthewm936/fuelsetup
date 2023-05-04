@@ -3,68 +3,50 @@
     <meta charset="UTF-8">
     <title>About Us</title>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
+   
+  
+      h1 {
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+    
+      p {
+        font-size: 18px;
+        line-height: 1.5;
+        margin-bottom: 30px;
+      }
+        
+      a {
+        color: #333;
+        text-decoration: none;
+      }
+    
+      a:hover {
+        color: #fff;
+        background-color: #333;
+      }
+      
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+       
+      .row::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+      
+     
+        img {
+        max-width: 200px;
+        max-height: 200px;
       }
 
-  header {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-  }
-  
-  h1 {
-    font-size: 36px;
-    margin-bottom: 20px;
-  }
-  
-  p {
-    font-size: 18px;
-    line-height: 1.5;
-    margin-bottom: 30px;
-  }
-  
-  a {
-    color: #333;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    color: #fff;
-    background-color: #333;
-  }
-  
-  .container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-  
-  .row::after {
-    content: "";
-    clear: both;
-    display: table;
-  }
-  
-  .col {
-    float: left;
-    width: 25%;
-    padding: 0 10px;
-  }
-  
-  @media screen and (max-width: 600px) {
-    .col {
-      width: 100%;
-    }
-  }
 
-  img {
-  max-width: 200px;
-  max-height: 200px;
-}
+      
+
 
 </style>
   </head>
