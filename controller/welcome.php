@@ -226,7 +226,15 @@ class Controller_Welcome extends Controller_Template
 		if(isset($_GET['colorNameRemove'])) {
 			$colorToRemove = $_GET['colorNameRemove'];
 
-			DB::delete('colors')->where('name','=',$colorToRemove)->execute();					
+			$deleteResult = DB::delete('colors')->where('name','=',$colorToRemove)->execute();					
+			
+			$NO_COLOR_FOUND = 0;
+			$colorWasNotDeleted = $deleteResult == $NO_COLOR_FOUND;
+			if ($colorWasNotDeleted) {
+				echo "<p> The color \"$colorToRemove\" was not found and could not be deleted </p>";
+			} else {
+				echo "<p> The color \"$colorToRemove\" was removed.</p>";
+			}
 		}
 
 		//uncomment these line to get a crappy list of the colors in the database
