@@ -21,9 +21,8 @@
  */
  
 //KNOWN BUGS:
-// 1) Can't color when the color table's size is 1
-// 2) The name in the dropdown is not the same name as the color
-// 3) only the first 2 rows in the color table automatically update which cells are colored
+// 1) The name in the dropdown is not the same name as the color
+// 2) only the first 2 rows in the color table automatically update which cells are colored
 		
 class Controller_Welcome extends Controller_Template
 {
