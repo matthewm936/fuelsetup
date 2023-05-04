@@ -24,7 +24,6 @@
 // 1) Can't color when the color table's size is 1
 // 2) The name in the dropdown is not the same name as the color
 // 3) only the first 2 rows in the color table automatically update which cells are colored
-// 4) Colors wit spaces in the name don't work properly
 		
 class Controller_Welcome extends Controller_Template
 {
@@ -225,6 +224,8 @@ class Controller_Welcome extends Controller_Template
 				echo "<p>A color already exists with the given hex code.</p>";
 			} else if ($colorNameIsEmpty or $colorHexIsEmpty or $colorIDIsEmpty) {
 				echo "<p>No field can be empty when adding a color.</p>";
+			} else if (strpos($colorName, " ")) {
+				echo "<p>Color names cannot contain spaces.</p>";
 			} else {
 				list($insertId, $rowsAffected) = DB::insert('colors')->set(array(
 				'id'	=> $colorID,
