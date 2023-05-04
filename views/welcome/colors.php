@@ -31,8 +31,14 @@
             echo "<br>";
 
             $colors = DB::query('SELECT `name` FROM `colors`')->execute()->as_array();
-		    foreach($colors as $color) {
-			    echo ($color['name'] . ", ");
+	    $firstElementFlag = true;
+	    foreach($colors as $color) {
+                if($firstElementFlag) {
+                    echo $color['name'];
+                    $firstElementFlag = false;
+                } else {
+		    echo (", " . $color['name']);
+                }
 	    }
         ?>
     </p>
