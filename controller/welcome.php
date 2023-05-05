@@ -99,13 +99,15 @@ class Controller_Welcome extends Controller_Template
 					// Generate the drop-down for the left column cell
 					echo "<td id=\"primaryColumn\">";
 					echo "<select name='color" . $i . "'>";
+					$j = 0;
 					foreach ($colorsArray as $color) {
 						$color = implode($color);
 						$selected = '';
-						if ($color == $i) {
+						if ($j == $i) {
 							$selected = 'selected';
 						}
 						echo "<option value='" . $color . "' " . $selected . ">" . ucfirst($color) . "</option>";
+						$j++;
 					}
 					echo "</select>";
 					echo "</td>";
